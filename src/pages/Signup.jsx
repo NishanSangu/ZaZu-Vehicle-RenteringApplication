@@ -5,8 +5,6 @@ import axios from "axios";
 import { registerRoute } from "../utils/APIRoutes";
 import { useNavigate, Link } from "react-router-dom";
 
-import Helmet from "../components/Helmet/Helmet";
-import CommonSection from "../components/UI/CommonSection";
 
 export default function Signup() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,11 +16,11 @@ export default function Signup() {
     // Navigate
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-            navigate("/");
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
+    //         navigate("/");
+    //     }
+    // }, []);
 
     // Tosting option
     const toastOptions = {
@@ -35,27 +33,33 @@ export default function Signup() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log("Register")
         if (handleValidation()) {
-            const { data } = await axios.post(registerRoute, {
+            const { data } = await axios.post(
+                registerRoute,
+            {
                 userName,
                 email,
-                password,
-            });
-            if (data.status === false) {
+                password
+            }
+            );
+            if (data.success === false) {
                 toast.error(data.msg, toastOptions);
             }
-            if (data.status === true) {
-                localStorage.setItem(
-                    process.env.REACT_APP_LOCALHOST_KEY,
-                    JSON.stringify(data.user)
-                );
-                setIsLoggedIn(true);
-                navigate("/");
+            if (data.success === true) {
+                // localStorage.setItem(
+                //     process.env.REACT_APP_LOCALHOST_KEY,
+                //     JSON.stringify(data.user)
+                // );
+                // setIsLoggedIn(true);
+                console.log("Successfully Signedup")
+                navigate("/login");
             }
-        }
+        } 
     };
 
     const handleValidation = () => {
+        console.log("Hanle Validation!")
         if (email === "") {
             toString.error("Please Enter the Email", toastOptions);
         } else if (password !== conPassword) {
@@ -63,21 +67,27 @@ export default function Signup() {
                 "Password and confirm password should be same.",
                 toastOptions
             );
+        console.log("noEmail")
+
             return false;
         } else if (userName.length < 3) {
             toast.error(
                 "Username should be greater than 3 characters.",
                 toastOptions
             );
+            console.log("Small user Name")
             return false;
         } else if (password.length < 8) {
             toast.error(
                 "Password should be equal or greater than 8 characters.",
                 toastOptions
             );
+            console.log('Small Password!')
             return false;
         }
-    };
+        return true
+    }
+
     return (
         <div className="Auth-form-container">
             <form className="Auth-form" onSubmit={(event) => handleSubmit(event)}>
