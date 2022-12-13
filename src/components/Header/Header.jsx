@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, {useState, useRef } from "react";
 
 import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
@@ -23,40 +23,18 @@ const navLinks = [
   },
 ];
 
-const Header = () => {
+const Header = (props) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const menuRef = useRef(null);
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
   return (
-    <header className="header">
-      {/* ============ header top ============ */}
-      {/* <div className="header__top">
-        <Container>
-          <Row>
-            <Col lg="6" md="6" sm="6">
-              <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                <Link to="/login" className=" d-flex align-items-center gap-1">
-                  <i class="ri-login-circle-line"></i> Login
-                </Link>
-              
-              
-              <div className="header__top__right d-flex align-items-center justify-content-end gap-3"></div>
-                <Link to="/signup" className=" d-flex align-items-center gap-1">
-                  <i class="ri-user-line"></i> Register
-                </Link>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div> */}
-      {/* ========== main navigation =========== */}
-
       <div className="main__navbar">
         <Container>
           <div className="navigation__wrapper d-flex align-items-center justify-content-between">
             <span className="mobile__menu">
-              <i class="ri-menu-line" onClick={toggleMenu}></i>
+              <i className="ri-menu-line" onClick={toggleMenu}></i>
             </span>
 
             <div className="navigation" ref={menuRef} onClick={toggleMenu}>
@@ -79,20 +57,21 @@ const Header = () => {
               <div className="search__box">
                 <input type="text" placeholder="Search" />
                 <span>
-                  <i class="ri-search-line"></i>
+                  <i className="ri-search-line"></i>
                 </span>
               </div>
-            </div>
+          </div>
+          
             {/* ================Register and Login ======================*/}
             <div className="Register_login">
             <Row>
             <Col lg="6" md="6" sm="6">
               <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                <Link to="/login" className=" d-flex align-items-center gap-1">
-                  <i class="ri-login-circle-line"></i> Login
+                <Link to="/login" className=" d-flex align-items-center gap-2">
+                  <i className="ri-login-circle-line"></i> Login
                   </Link>
-                <Link to="/signup" className=" d-flex align-items-center gap-1">
-                  <i class="ri-user-line"></i> Register
+                <Link to="/signup" className=" d-flex align-items-center gap-2">
+                  <i className="ri-user-line"></i> Register
                 </Link>
               </div>
             </Col>
@@ -103,8 +82,6 @@ const Header = () => {
           
         </Container>
       </div>
-      
-    </header>
   );
 };
 
