@@ -28,7 +28,7 @@ const About = () => {
             <Col lg="6" md="6" sm="12">
               <div className="about__page-content">
                 <h2 className="section__title">
-                  We Are Committed To Provide Safe Ride Solutions
+                  We Are Committed To Provide Safe Renting of a Vehicle
                 </h2>
 
                 <p className="section__description">
