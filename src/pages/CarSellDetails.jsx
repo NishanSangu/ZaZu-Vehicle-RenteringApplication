@@ -36,11 +36,11 @@ const CarDetails = () => {
 
                   <span className=" d-flex align-items-center gap-2">
                     <span style={{ color: "#f9a826" }}>
-                      <i class="ri-star-s-fill"></i>
-                      <i class="ri-star-s-fill"></i>
-                      <i class="ri-star-s-fill"></i>
-                      <i class="ri-star-s-fill"></i>
-                      <i class="ri-star-s-fill"></i>
+                      <i className="ri-star-s-fill"></i>
+                      <i className="ri-star-s-fill"></i>
+                      <i className="ri-star-s-fill"></i>
+                      <i className="ri-star-s-fill"></i>
+                      <i className="ri-star-s-fill"></i>
                     </span>
                     ({singleCarItem.rating} ratings)
                   </span>
@@ -64,7 +64,7 @@ const CarDetails = () => {
 
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i
-                      class="ri-settings-2-line"
+                      className="ri-settings-2-line"
                       style={{ color: "#f9a826" }}
                     ></i>{" "}
                     {singleCarItem.automatic}
@@ -72,7 +72,7 @@ const CarDetails = () => {
 
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i
-                      class="ri-timer-flash-line"
+                      className="ri-timer-flash-line"
                       style={{ color: "#f9a826" }}
                     ></i>{" "}
                     {singleCarItem.speed}
@@ -98,7 +98,7 @@ const CarDetails = () => {
 
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i
-                      class="ri-building-2-line"
+                      className="ri-building-2-line"
                       style={{ color: "#f9a826" }}
                     ></i>{" "}
                     {singleCarItem.brand}

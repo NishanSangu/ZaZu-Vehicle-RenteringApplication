@@ -4,17 +4,16 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { registerRoute } from "../utils/APIRoutes";
 import { useNavigate, Link } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
-import Helmet from "../components/Helmet/Helmet";
-import CommonSection from "../components/UI/CommonSection";
+export default function Signup(props) {
 
-export default function Signup() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [conPassword, setConPassword] = useState("");
     const [email, setEmail] = useState("");
-
+    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+    
     // Navigate
     const navigate = useNavigate();
 
@@ -35,49 +34,63 @@ export default function Signup() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log("Register")
         if (handleValidation()) {
-            const { data } = await axios.post(registerRoute, {
+            const { data } = await axios.post(
+                registerRoute,
+            {
                 userName,
                 email,
-                password,
-            });
-            if (data.status === false) {
+                password
+            }
+            );
+            if (data.success === false) {
                 toast.error(data.msg, toastOptions);
             }
-            if (data.status === true) {
+            if (data.success === true) {
                 localStorage.setItem(
                     process.env.REACT_APP_LOCALHOST_KEY,
                     JSON.stringify(data.user)
                 );
-                setIsLoggedIn(true);
+                props.setIsLoggedIn(true);
+                console.log("Successfully Signedup")
                 navigate("/");
             }
-        }
+        } 
     };
 
     const handleValidation = () => {
+
         if (email === "") {
-            toString.error("Please Enter the Email", toastOptions);
+            toast.error("Please Enter the Email", toastOptions);
+            return false;
+
         } else if (password !== conPassword) {
             toast.error(
                 "Password and confirm password should be same.",
                 toastOptions
             );
+        console.log("noEmail")
+
             return false;
         } else if (userName.length < 3) {
             toast.error(
                 "Username should be greater than 3 characters.",
                 toastOptions
             );
+            console.log("Small user Name")
             return false;
         } else if (password.length < 8) {
             toast.error(
                 "Password should be equal or greater than 8 characters.",
                 toastOptions
             );
+            console.log('Small Password!')
             return false;
         }
-    };
+        return true
+    }
+
     return (
         <div className="Auth-form-container">
             <form className="Auth-form" onSubmit={(event) => handleSubmit(event)}>

@@ -1,17 +1,79 @@
 
-import React, { useState } from "react"
+import React, { useState,useEffect } from "react"
 import { useNavigate,Link } from "react-router-dom";
 import "../styles/auth.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios"
+import {loginRoute} from "../utils/APIRoutes"
 
-
-export default function Login() {
+export default function Login(props) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
     
+
+    useEffect(() => {
+        if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
+            navigate("/");
+        }
+    }, []);
+
+        // Tosting option
+        const toastOptions = {
+            position: "bottom-right",
+            autoClose: 5000,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "dark",
+        };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log("Register")
+        if (handleValidation) {
+            const { data } = await axios.post(
+                loginRoute,
+                {
+                    email,
+                    password
+                }
+            );
+            if (data.success === false) {
+                toast.error(data.msg, toastOptions);
+            }
+            if (data.success === true) {
+                localStorage.setItem(
+                    process.env.REACT_APP_LOCALHOST_KEY,
+                    JSON.stringify(data.user)
+                );
+                // props.setIsLoggedIn(true);
+                console.log("Successfully Signedup")
+                navigate("/");
+            }
+        }
+    };
+
+      // Handle the validations
+    const handleValidation = () => {
+    if (email.length ==="") {
+        toast.error("Username and Password is required!", toastOptions);
+        return false;
+    }
+    else if (password === "") {
+        console.log("validation", toast);
+        toast.error("Username and Password is required!", toastOptions);
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+
     return (
         <div className="Auth-form-container">
-            <form className="Auth-form">
+            <form className="Auth-form" onSubmit={(event) => handleSubmit(event)}>
                 <div className="Auth-form-content">
                     <h3 className="Auth-form-title">Sign In</h3>
                     <div className="text-center">
@@ -48,6 +110,7 @@ export default function Login() {
                     </p>
                 </div>
             </form>
+            <ToastContainer/>
         </div>
     )
 }
