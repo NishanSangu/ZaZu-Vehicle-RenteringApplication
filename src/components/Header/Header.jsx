@@ -4,6 +4,7 @@ import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
 import ToggleSwitch from "../ToggleSwitch";
+import Logout from "../LogOut";
 const navLinks = [
   {
     path: "/home",
@@ -23,7 +24,6 @@ const navLinks = [
   },
 ];
 
-
 const Header = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const menuRef = useRef(null);
@@ -35,7 +35,7 @@ const Header = (props) => {
       setIsLoggedIn(true);
     }
   }, []);
-  
+
   return (
     <div className="main__navbar">
       <Container>
@@ -71,15 +71,13 @@ const Header = (props) => {
             </div>{" "}
           </div>{" "}
           {/* ================Register and Login ======================*/}{" "}
-
-          
-            <div className="Register_login">
-              <Row>
-                <Col lg="6" md="6" sm="6">
-                  <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                    <ToggleSwitch
-                      onClick={console.log("hello")}
-                      label="pagetoggle"
+          <div className="Register_login">
+            <Row>
+              <Col lg="6" md="6" sm="6">
+                <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
+                  <ToggleSwitch
+                    onClick={console.log("hello")}
+                    label="pagetoggle"
                   />
                   {!isLoggedIn && (
                     <Link
@@ -87,8 +85,8 @@ const Header = (props) => {
                       className=" d-flex align-items-center gap-2"
                     >
                       <i className="ri-login-circle-line"> </i> Login{" "}
-                    </Link>)}
-                  {" "}
+                    </Link>
+                  )}{" "}
                   {!isLoggedIn && (
                     <Link
                       to="/signup"
@@ -97,17 +95,12 @@ const Header = (props) => {
                       <i className="ri-user-line"> </i> Register{" "}
                     </Link>
                   )}
-                  {" "}
-                  
-                  </div>{" "}
-                </Col>{" "}
-              </Row>{" "}
-            </div>
-          
-
-            {" "}
+                  {isLoggedIn && <Logout />}{" "}
+                </div>{" "}
+              </Col>{" "}
+            </Row>{" "}
+          </div>{" "}
         </div>{" "}
-      
       </Container>{" "}
     </div>
   );
