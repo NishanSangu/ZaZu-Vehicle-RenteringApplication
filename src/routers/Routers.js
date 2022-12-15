@@ -13,6 +13,7 @@ import NotFound from "../pages/NotFound";
 import Contact from "../pages/Contact";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
+import AddNewVehicle from "../pages/AddNewVehicle";
 
 const Routers = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

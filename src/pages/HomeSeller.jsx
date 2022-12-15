@@ -5,6 +5,7 @@ import Helmet from "../components/Helmet/Helmet";
 
 import { Container, Row, Col } from "reactstrap";
 import FindCarForm from "../components/UI/FindCarForm";
+import UserProfile from "../components/UI/UserProfile";
 import carData from "../assets/data/carData";
 import CarItemSell from "../components/UI/CarItemsSell";
 import Testimonial from "../components/UI/Testimonial";
@@ -28,6 +29,7 @@ const HomeSeller = () => {
               <Col lg="8" md="8" sm="12">
                 {/* ToDo show user profile and statics */}
                 {/* <FindCarForm /> */}
+                <UserProfile />
               </Col>
             </Row>
           </Container>
