@@ -122,6 +122,14 @@ const Routers = () => {
       loggedInUser={loggedInUser}
       />} />
 
+      <Route path="/addnewvehicle" element={<AddNewVehicle
+      setIsLoggedIn={setIsLoggedIn} 
+      isLoggedIn={isLoggedIn} 
+      setLoggedInUser={setLoggedInUser}
+      loggedInUser={loggedInUser}
+      />} />
+
+      
     </Routes>
   );
 };
