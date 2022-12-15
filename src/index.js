@@ -6,14 +6,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "remixicon/fonts/remixicon.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { CookiesProvider } from 'react-cookie';
 import { BrowserRouter as Router } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
-      <App />
+    <CookiesProvider>
+        <App />
+    </CookiesProvider>    
     </Router>
   </React.StrictMode>
 );

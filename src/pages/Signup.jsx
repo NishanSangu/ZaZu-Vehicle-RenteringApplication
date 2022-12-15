@@ -4,23 +4,24 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { registerRoute } from "../utils/APIRoutes";
 import { useNavigate, Link } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
+export default function Signup(props) {
 
-export default function Signup() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [conPassword, setConPassword] = useState("");
     const [email, setEmail] = useState("");
-
+    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+    
     // Navigate
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-    //         navigate("/");
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
+            navigate("/");
+        }
+    }, []);
 
     // Tosting option
     const toastOptions = {
@@ -47,21 +48,23 @@ export default function Signup() {
                 toast.error(data.msg, toastOptions);
             }
             if (data.success === true) {
-                // localStorage.setItem(
-                //     process.env.REACT_APP_LOCALHOST_KEY,
-                //     JSON.stringify(data.user)
-                // );
-                // setIsLoggedIn(true);
+                localStorage.setItem(
+                    process.env.REACT_APP_LOCALHOST_KEY,
+                    JSON.stringify(data.user)
+                );
+                props.setIsLoggedIn(true);
                 console.log("Successfully Signedup")
-                navigate("/login");
+                navigate("/");
             }
         } 
     };
 
     const handleValidation = () => {
-        console.log("Hanle Validation!")
+
         if (email === "") {
-            toString.error("Please Enter the Email", toastOptions);
+            toast.error("Please Enter the Email", toastOptions);
+            return false;
+
         } else if (password !== conPassword) {
             toast.error(
                 "Password and confirm password should be same.",
